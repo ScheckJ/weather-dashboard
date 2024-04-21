@@ -10,7 +10,34 @@ h1 {
     display: flex;
     justify-content: center;
 }
+
+h2 {
+    display: flex;
+    justify-content: center;
+}
+
+h3{
+    display: flex;
+    
+}
+section {
+    display: flex;
+    margin: 20px;
+}
+
+form{
+    margin: 10px;
+    float: left;
+}
+
 #city-display{
     display: flex;
-    float: right;
+    /* justify-content: center; */
+    border: 2px solid #070614;
+}
+#days{
+    justify-content: center;
+    background-color: rgb(27, 68, 150);
+    margin: 20px;
+    padding: 20px;
 }

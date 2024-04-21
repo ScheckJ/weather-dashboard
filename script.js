@@ -58,11 +58,12 @@ function fetchForecastData(city) {
 
   function forecastCard (forecastData){
     console.log(forecastData)
-    for (let i = 3; i < forecastData.list.length; i += 8) {
+    for (let i = 2; i < forecastData.list.length; i += 8) {
         const element = forecastData.list[i];
         console.log(element);  
         
-    const divEl = document.createElement('div')
+    const divEl2 = document.createElement('div')
+    divEl2.setAttribute('id', 'days')
     const dateEl = document.createElement('h3')
     const temp = document.createElement('p')
     const wind = document.createElement('p')
@@ -74,8 +75,8 @@ function fetchForecastData(city) {
     wind.textContent = forecastData.list[i].wind.speed
     humidity.textContent = forecastData.list[i].main.humidity
 
-    divEl.append(dateEl, temp, wind, humidity)
-    sectionEl2.appendChild(divEl)
+    divEl2.append(dateEl, temp, wind, humidity)
+    sectionEl2.appendChild(divEl2)
 
       }
   }
