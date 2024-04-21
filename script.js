@@ -1,41 +1,69 @@
-const testBtn = document.querySelector('#test')
-const sectionEl = document.querySelector('#city-display')
+const testBtn = document.querySelector("#test");
+const sectionEl = document.querySelector("#city-display");
+const apiKey = "024581bdd94ff8a08d079fac8b68ab5d";
 
-testBtn.addEventListener('click', LatLon)
+// create function that will capture the value of the input the user typed in
+function start(event) {
+  event.preventDefault();
+  const city = document.getElementById("city").value;
 
-function LatLon(event){
-    event.preventDefault()
-    const city = document.getElementById('city')
-    const cityValue = city.value
-    
-    console.log(cityValue)
+  fetchCurrentData(city);
+  fetchForecastData(city)
+}
 
-    const requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityValue}&limit=5&appid=024581bdd94ff8a08d079fac8b68ab5d`;
-    fetch(requestUrl)
+function fetchCurrentData(city) {
+  fetch(
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+  )
     .then(function (response) {
-        return response.json();
+      return response.json();
     })
     .then(function (data) {
-        console.log(data[0].name)
+    //   console.log('Current Weather Data: ',data);
+        currentWeatherCard(data)
+    });
+}
 
-    const lat = data
+function currentWeatherCard(cityData){
+    console.log(cityData);
+    const divEl = document.createElement('div')
     const titleEl = document.createElement('h2')
+    const temp = document.createElement('p')
+    const wind = document.createElement('p')
+    const humidity = document.createElement('p')
 
-    titleEl.textContent = data[0].name
-    
+    titleEl.textContent = cityData.name
+    temp.textContent = cityData.main.temp
+    wind.textContent = cityData.wind.speed
+    humidity.textContent = cityData.main.humidity
 
-    sectionEl.appendChild(titleEl)
-    
-    function Forecast (){
-        const requestUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=024581bdd94ff8a08d079fac8b68ab5d'
-        fetch(requestUrl)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data)})
-    }
-    })
-    }
+    divEl.append(titleEl, temp, wind, humidity)
+    sectionEl.appendChild(divEl)
+
+}
 
 
+function fetchForecastData(city) {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`
+    )
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        forecastCard(data)
+      });
+  }
+
+  function forecastCard (forecastData){
+    console.log(forecastData)
+    for (let i = 3; i < forecastData.list.length; i += 8) {
+        const element = forecastData.list[i];
+        console.log(element);  
+
+      }
+  }
+
+
+
+testBtn.addEventListener("submit", start);
