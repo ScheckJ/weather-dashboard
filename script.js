@@ -1,15 +1,46 @@
 const testBtn = document.querySelector("#test");
 const sectionEl1 = document.querySelector("#city-display");
 const sectionEl2 = document.querySelector('#forecast')
+const sectionEl3 = document.querySelector('#city-list')
 const apiKey = "024581bdd94ff8a08d079fac8b68ab5d";
 
 // create function that will capture the value of the input the user typed in
 function start(event) {
   event.preventDefault();
   const city = document.getElementById("city").value;
-
+  const citys = JSON.parse(localStorage.getItem('citys')) || []
+  citys.push(city)
+  localStorage.setItem('citys', JSON.stringify(citys))
+  
   fetchCurrentData(city);
-  fetchForecastData(city)
+  fetchForecastData(city);
+  cityHistory(city);
+  
+}
+
+function cityHistory(city){
+  
+  const cityTab = JSON.parse(localStorage.getItem('citys')) || []
+  let i = 0
+  for (; i < cityTab.length; i++) {
+        localStorage.removeItem('citys')
+        const cityName  = cityTab[i];
+
+        const cityDiv = document.createElement('div')
+        const cityBtn = document.createElement('button')
+
+        cityBtn.textContent = cityName
+
+    
+        cityDiv.appendChild(cityBtn)
+        sectionEl3.appendChild(cityDiv)
+        cityBtn.addEventListener('click', function(){fetchCurrentData(`${city}`)})
+        cityBtn.addEventListener('click', function(){currentWeatherCard(`${city}`)})
+        cityBtn.addEventListener('click', function(){fetchForecastData`${city}`})
+        cityBtn.addEventListener('click', function(){forecastCard`${city}`})
+       
+      }
+      
 }
 
 function fetchCurrentData(city) {
@@ -27,6 +58,7 @@ function fetchCurrentData(city) {
 
 function currentWeatherCard(cityData){
     console.log(cityData);
+    sectionEl1.innerHTML = ""
     const divEl = document.createElement('div')
     const titleEl = document.createElement('h2')
     const temp = document.createElement('p')
@@ -40,6 +72,7 @@ function currentWeatherCard(cityData){
 
     divEl.append(titleEl, temp, wind, humidity)
     sectionEl1.appendChild(divEl)
+
 
 }
 
@@ -58,6 +91,7 @@ function fetchForecastData(city) {
 
   function forecastCard (forecastData){
     console.log(forecastData)
+    sectionEl2.innerHTML = ''
     for (let i = 2; i < forecastData.list.length; i += 8) {
         const element = forecastData.list[i];
         console.log(element);  
@@ -80,7 +114,6 @@ function fetchForecastData(city) {
 
       }
   }
-
 
 
 testBtn.addEventListener("submit", start);
