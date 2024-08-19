@@ -29,10 +29,13 @@ form{
     margin: 10px;
     float: left;
 }
+.cities{
+    display: flex;
+    flex-wrap: wrap;
+}
 
 #city-display{
     display: flex;
-    /* justify-content: center; */
     border: 2px solid #070614;
 }
 #days{
@@ -40,4 +43,16 @@ form{
     background-color: rgb(27, 68, 150);
     margin: 20px;
     padding: 20px;
+}
+
+#city-list {
+    display: flex;
+    flex-direction: column;
+   align-content: flex-start;
+}
+
+#save{
+    background-color: gray;
+    width: 200px;
+    height: 30px;
 }

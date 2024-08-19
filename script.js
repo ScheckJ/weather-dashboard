@@ -28,16 +28,16 @@ function cityHistory(city){
 
         const cityDiv = document.createElement('div')
         const cityBtn = document.createElement('button')
-
+      
         cityBtn.textContent = cityName
-
+        cityBtn.setAttribute('id', 'save')
     
         cityDiv.appendChild(cityBtn)
         sectionEl3.appendChild(cityDiv)
         cityBtn.addEventListener('click', function(){fetchCurrentData(`${city}`)})
         cityBtn.addEventListener('click', function(){currentWeatherCard(`${city}`)})
-        cityBtn.addEventListener('click', function(){fetchForecastData`${city}`})
-        cityBtn.addEventListener('click', function(){forecastCard`${city}`})
+        cityBtn.addEventListener('click', function(){fetchForecastData(`${city}`)})
+        cityBtn.addEventListener('click', function(){forecastCard(`${city}`)})
        
       }
       
